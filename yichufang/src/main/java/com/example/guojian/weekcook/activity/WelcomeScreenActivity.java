@@ -22,7 +22,7 @@ public class WelcomeScreenActivity extends Activity {
         try {
             PackageInfo pi = pm.getPackageInfo("com.guojian.weekcook", 0);
             TextView versionNumber = (TextView) findViewById(R.id.text000001);
-            String version = "©2017 易厨房v" + pi.versionName;
+            String version = "©2017 易厨房v" + pi.versionName+" ";
             if (versionNumber != null) versionNumber.setText(version);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -33,8 +33,9 @@ public class WelcomeScreenActivity extends Activity {
                 /* Create an Intent that will start the Main WordPress Activity. */
                 Intent mainIntent = new Intent(WelcomeScreenActivity.this, MainActivity.class);
                 startActivity(mainIntent);
-                finish();
+                WelcomeScreenActivity.this.finish();
             }
-        }, 5000);
+        }, 2000);
+
     }
 }
