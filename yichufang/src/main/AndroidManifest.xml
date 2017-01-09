@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.guojian.weekcook">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Include next permission if you want to allow UIL to cache images on SD card -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/yu11"
+        android:label="@string/app_name">
+        <meta-data
+            android:name="com.alibaba.apigateway.appKey"
+            android:value="23495613" />
+        <meta-data
+            android:name="com.alibaba.apigateway.appSecret"
+            android:value="c26f88a392275100e8649faea8b641ce" />
+
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme_red">
+        </activity>
+        <activity
+            android:name=".activity.CookListActivity"
+            android:theme="@style/AppTheme_red" />
+        <activity
+            android:name=".activity.DetailsActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.CollectionActivity"
+            android:theme="@style/AppTheme_red" />
+        <activity
+            android:name=".activity.MyInformationActivity"
+            android:theme="@style/AppTheme_red" />
+        <activity
+            android:name=".activity.MySettingsActivity"
+            android:theme="@style/AppTheme_red" />
+        <activity
+            android:name=".activity.MyHeadImageShowerActivity"
+            android:theme="@style/AppTheme_black" />
+        <activity
+            android:name=".activity.SearchActivity"
+            android:theme="@style/AppTheme_red" />
+        <activity
+            android:name=".activity.WelcomeScreenActivity"
+            android:theme="@style/AppTheme_welcome">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.ProcessLargeImgActivity"
+            android:theme="@style/AppTheme_black" />
+    </application>
+
+</manifest>

@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">易厨房</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="search_text_hint_view">搜索菜谱、食材..</string>
+    <string name="chat">搜索</string>
+    <string name="contacts">分类</string>
+    <string name="discovery">发现</string>
+    <string name="me">我的</string>
+    <string name="me_name">Mary</string>
+    <string name="my_collection">我的收藏</string>
+    <string name="my_collection_or_not">确定移除收藏?</string>
+    <string name="me_my_information">个人资料</string>
+    <string name="me_settings">设置</string>
+    <string name="me_share_app">把APP推荐给朋友</string>
+    <string name="text_loading">正在加载…</string>
+    <string name="no_data_massage">sorry, 暂无信息…</string>
+    <string name="cook_process">—  制作步骤  —</string>
+    <string name="cook_material_list">—  食材清单  —</string>
+    <string name="cook_details_end_message">已经到底啦</string>
+    <string name="cook_details_end_message_screen_shot">shared by cooking</string>
+    <string name="my_information_change_name">更换头像 >></string>
+    <string name="my_information_change_gender">性别</string>
+    <string name="my_information_change_gender_secret">保密</string>
+    <string name="my_information_change_email">邮箱</string>
+    <string name="my_information_change_not_text">未填写</string>
+    <string name="my_information_change_personal_signature">个性签名</string>
+    <string name="my_settings_help_center">帮助中心</string>
+    <string name="my_settings_give_app_score">给app评分</string>
+    <string name="my_settings_clean_cache">清除缓存</string>
+    <string name="my_settings_my_cache_size">0.00kb</string>
+    <string name="my_settings_my_cache">确定清除缓存?</string>
+
+    <string name="hot_material">时令与热门食材</string>
+    <string name="cook_book_hand_select">菜谱精选</string>
+
+    <!--  Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>
