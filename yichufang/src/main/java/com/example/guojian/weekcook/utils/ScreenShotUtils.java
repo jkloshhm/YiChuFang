@@ -27,8 +27,8 @@ import java.util.Locale;
 
 public class ScreenShotUtils {
 
-    public static String DCIMCamera_PATH = Environment.getExternalStorageDirectory()+ "/Cooking/ScreenShotImg/";
-    private static String TAG = "Listview and ScrollView item 截图:";
+    public static String DCIMCamera_PATH = Environment.getExternalStorageDirectory()+ "/YiChuFang/ScreenShotImg/";
+    private static String TAG = "截图:";
 
     // 保存到sdcard
     public static String savePic(Bitmap b) {

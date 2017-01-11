@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -39,7 +38,7 @@ public class MyInformationActivity extends AppCompatActivity implements View.OnC
     /* 头像文件 */
     private final String IMAGE_FILE_NAME = "head.jpg";
     private final String IMAGE_FILE_NAME_CAMERA = "head_camera.jpg";
-    private String path = Environment.getExternalStorageDirectory() + "/Cooking/myHeadImg/";// sd路径
+    private String path = Environment.getExternalStorageDirectory() + "/YiChuFang/myHeadImg/";// sd路径
     private String colors[] = {"保密", "女", "男"};
     private String setItems[] = {"直接拍照", "从手机相册选择"};
     private SharedPreferences mSharedPreferences;
@@ -103,11 +102,9 @@ public class MyInformationActivity extends AppCompatActivity implements View.OnC
     private void choseHeadImageFromCameraCapture() {
         Intent intentFromCapture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // 判断存储卡是否可用，存储照片文件
-
         //File tempFile = new File(path, IMAGE_FILE_NAME_CAMERA);
         //tempFile.mkdirs();// 创建文件夹
         if(GetBitmapFromSdCardUtil.hasSdcard()) {
-            Log.i(TAG,""+(path==null));
             File file = new File(path);
             file.mkdirs();// 创建文件夹
             //String fileName = path + IMAGE_FILE_NAME;// 图片名字

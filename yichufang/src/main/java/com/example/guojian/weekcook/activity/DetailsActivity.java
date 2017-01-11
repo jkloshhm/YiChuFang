@@ -6,6 +6,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -36,6 +38,7 @@ import com.example.guojian.weekcook.dao.MyDBServiceUtils;
 import com.example.guojian.weekcook.utils.GetBitmapFromSdCardUtil;
 import com.example.guojian.weekcook.utils.ImageLoaderUtil;
 import com.example.guojian.weekcook.utils.ScreenShotUtils;
+import com.example.guojian.weekcook.utils.WaterMaskImageUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -89,11 +92,12 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
         Button nButton = builder.getButton(DialogInterface.BUTTON_NEGATIVE);
         nButton.setTextColor(getResources().getColor(R.color.gray));
     }
+    Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //context = getApplicationContext();
+        mContext = getApplicationContext();
         setContentView(R.layout.activity_details);
         initViews();
         mShareLinearLayout.setOnClickListener(new View.OnClickListener() {
@@ -365,8 +369,13 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
         protected String doInBackground(String... params) {
             try {
                 if (GetBitmapFromSdCardUtil.hasSdcard()) {
+                    Bitmap mScreenShotBitmap = ScreenShotUtils.getScrollViewBitmap(mScrollView);
+                    Bitmap waterBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon512);
+                    Bitmap watermarkBitmap = WaterMaskImageUtil.createWaterMaskLeftTop(
+                            DetailsActivity.this,
+                            mScreenShotBitmap, waterBitmap,10,10);
                     String fileName = ScreenShotUtils
-                            .savePic(ScreenShotUtils.getScrollViewBitmap(mScrollView));
+                            .savePic(watermarkBitmap);
                     shareMsg("分享到...", null, null, fileName);
                     //线程睡眠5秒，模拟耗时操作，这里面的内容Android系统会自动为你启动一个新的线程执行
                     //Thread.sleep(5000);
@@ -385,6 +394,8 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
         protected void onPostExecute(String result) {
             //更新UI的操作，这里面的内容是在UI线程里面执行的
             dialog.dismiss();
+            mEndMessage.setVisibility(View.GONE);
+            //mEndMessageScreenShot.setVisibility(View.GONE);
             Toast.makeText(getApplicationContext(), "截图已保存", Toast.LENGTH_SHORT).show();
         }
 

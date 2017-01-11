@@ -28,6 +28,11 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:visibility="gone"/>
+
                     <ImageView
                         android:id="@+id/iv_details_img"
                         android:layout_width="match_parent"
@@ -196,6 +201,8 @@
                         android:dividerHeight="0.5dp" />
 
                     <View
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
                         android:background="@color/gray_me_line" />
@@ -264,28 +271,32 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:paddingBottom="20dp"
                     android:paddingTop="25dp"
                     android:visibility="gone">
 
                     <View
-                        android:layout_width="100dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="match_parent"
                         android:layout_height="0.5dp"
                         android:background="@color/gray_me_line" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <ImageView
+                        android:paddingTop="10dp"
+                        android:layout_width="100dp"
+                        android:layout_height="126dp"
                         android:gravity="center_horizontal"
-                        android:paddingLeft="13dp"
-                        android:paddingRight="13dp"
-                        android:text="@string/cook_details_end_message_screen_shot"
-                        android:textColor="@color/gray_cccccc" />
+                        android:src="@mipmap/erweima_black" />
 
                     <View
-                        android:layout_width="100dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:paddingTop="10dp"
+                        android:layout_width="match_parent"
                         android:layout_height="0.5dp"
+                        android:visibility="invisible"
                         android:background="@color/gray_me_line" />
                 </LinearLayout>
             </LinearLayout>
