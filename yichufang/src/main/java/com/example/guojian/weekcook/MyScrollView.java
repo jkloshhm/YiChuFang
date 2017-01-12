@@ -1,8 +1,10 @@
 package com.example.guojian.weekcook;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.widget.ScrollView;
 
@@ -17,17 +19,58 @@ public class MyScrollView extends ScrollView {
      */
     private int lastScrollY;
 
+
+    // 这个值控制可以把ScrollView包裹的控件拉出偏离顶部或底部的距离。
+    private static final int MAX_OVERSCROLL_Y = 100;
+
+    private Context mContext;
+    private int newMaxOverScrollY;
+
+
     public MyScrollView(Context context) {
         this(context, null);
+        init(context);
     }
 
     public MyScrollView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
+        init(context);
     }
 
     public MyScrollView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        init(context);
     }
+
+
+    @SuppressLint("NewApi")
+    private void init(Context context) {
+
+        this.mContext = context;
+
+        DisplayMetrics metrics = mContext.getResources().getDisplayMetrics();
+        float density = metrics.density;
+        newMaxOverScrollY = (int) (density * MAX_OVERSCROLL_Y);
+
+        //false:隐藏ScrollView的滚动条。
+        //this.setVerticalScrollBarEnabled(false);
+
+        //不管装载的控件填充的数据是否满屏，都允许橡皮筋一样的弹性回弹。
+        this.setOverScrollMode(ScrollView.OVER_SCROLL_ALWAYS);
+    }
+
+    // 最关键的地方。
+    //支持到SDK8需要增加@SuppressLint("NewApi")。
+    @SuppressLint("NewApi")
+    @Override
+    protected boolean overScrollBy(int deltaX, int deltaY, int scrollX,
+                                   int scrollY, int scrollRangeX, int scrollRangeY,
+                                   int maxOverScrollX, int maxOverScrollY, boolean isTouchEvent) {
+        return super.overScrollBy(deltaX, deltaY, scrollX, scrollY,
+                scrollRangeX, scrollRangeY, maxOverScrollX, newMaxOverScrollY,
+                isTouchEvent);
+    }
+
 
     /**
      * 设置滚动接口

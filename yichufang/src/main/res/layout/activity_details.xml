@@ -244,7 +244,8 @@
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:paddingBottom="10dp"
-                    android:paddingTop="20dp">
+                    android:paddingTop="20dp"
+                    android:visibility="gone">
 
                     <View
                         android:layout_width="100dp"
@@ -273,8 +274,7 @@
                     android:gravity="center"
                     android:orientation="vertical"
                     android:paddingBottom="20dp"
-                    android:paddingTop="25dp"
-                    android:visibility="gone">
+                    android:paddingTop="25dp">
 
                     <View
                         android:layout_marginRight="20dp"

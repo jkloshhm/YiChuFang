@@ -111,8 +111,8 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                 dialog.setMessage("截屏中，请稍等...");
                 dialog.show();
                 //开始执行AsyncTask，并传入某些数据
-                mEndMessage.setVisibility(View.GONE);
-                mEndMessageScreenShot.setVisibility(View.VISIBLE);
+                //mEndMessage.setVisibility(View.GONE);
+                //mEndMessageScreenShot.setVisibility(View.VISIBLE);
                 new ScreenShotTask().execute("New Text");
             }
         });
@@ -370,8 +370,8 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
             try {
                 if (GetBitmapFromSdCardUtil.hasSdcard()) {
                     Bitmap mScreenShotBitmap = ScreenShotUtils.getScrollViewBitmap(mScrollView);
-                    Bitmap waterBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon512);
-                    Bitmap watermarkBitmap = WaterMaskImageUtil.createWaterMaskLeftTop(
+                    Bitmap waterBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon96);
+                    Bitmap watermarkBitmap = WaterMaskImageUtil.createWaterMaskRightTop(
                             DetailsActivity.this,
                             mScreenShotBitmap, waterBitmap,10,10);
                     String fileName = ScreenShotUtils
@@ -394,7 +394,7 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
         protected void onPostExecute(String result) {
             //更新UI的操作，这里面的内容是在UI线程里面执行的
             dialog.dismiss();
-            mEndMessage.setVisibility(View.GONE);
+            //mEndMessage.setVisibility(View.GONE);
             //mEndMessageScreenShot.setVisibility(View.GONE);
             Toast.makeText(getApplicationContext(), "截图已保存", Toast.LENGTH_SHORT).show();
         }
