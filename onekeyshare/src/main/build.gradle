@@ -1,0 +1,6 @@
+apply plugin: 'com.android.library'
+apply from: '../../AS-Proj-ShareSDK/EclipseModule.gradle'
+
+dependencies {
+	compile project(':Recommendation')
+}

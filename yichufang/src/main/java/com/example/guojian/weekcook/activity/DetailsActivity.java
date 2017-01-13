@@ -39,10 +39,17 @@ import com.example.guojian.weekcook.utils.GetBitmapFromSdCardUtil;
 import com.example.guojian.weekcook.utils.ImageLoaderUtil;
 import com.example.guojian.weekcook.utils.ScreenShotUtils;
 import com.example.guojian.weekcook.utils.WaterMaskImageUtil;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.onekeyshare.OnekeyShare;
 
 public class DetailsActivity extends Activity implements MyScrollView.OnScrollListener {
     private static DBServices db;
@@ -62,6 +69,11 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
     private int mDetailsTitleHeight;//标题栏的高度
     private int mScrollViewTop;//标题栏的高度
     private List<ProcessBean> processBeenList;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     //是否取消收藏
     public void setCancelCollection() {
@@ -92,11 +104,14 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
         Button nButton = builder.getButton(DialogInterface.BUTTON_NEGATIVE);
         nButton.setTextColor(getResources().getColor(R.color.gray));
     }
+
     Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ShareSDK.initSDK(this);
+
         mContext = getApplicationContext();
         setContentView(R.layout.activity_details);
         initViews();
@@ -120,6 +135,9 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
         WindowManager mWindowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         screenWidth = mWindowManager.getDefaultDisplay().getWidth();
 
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
@@ -236,6 +254,8 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+
     }
 
     @Override
@@ -288,8 +308,8 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
         mListViewProcess.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String positionString = ""+position;
-                StepViewPagerBean stepViewPagerBean = new StepViewPagerBean(processBeenList,positionString);
+                String positionString = "" + position;
+                StepViewPagerBean stepViewPagerBean = new StepViewPagerBean(processBeenList, positionString);
                 Intent mIntent = new Intent(DetailsActivity.this, ProcessLargeImgActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("stepViewPagerBean", stepViewPagerBean);
@@ -297,7 +317,7 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                 startActivity(mIntent);
             }
         });
-        String mTotalStepsString = "共"+processBeenList.size()+"步,点击进入大图";
+        String mTotalStepsString = "共" + processBeenList.size() + "步,点击进入大图";
         mTotalSteps.setText(mTotalStepsString);
     }
 
@@ -328,13 +348,23 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
     @Override
     protected void onStart() {
         Log.i(TAG, "DetailsActivity ____________onStart()");
-        super.onStart();
+        super.onStart();// ATTENTION: This was auto-generated to implement the App Indexing API.
+// See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.start(client, getIndexApiAction());
     }
 
     @Override
     protected void onStop() {
         Log.i(TAG, "DetailsActivity ____________onStop()");
-        super.onStop();
+        super.onStop();// ATTENTION: This was auto-generated to implement the App Indexing API.
+// See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.disconnect();
     }
 
     /**
@@ -364,6 +394,22 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
         startActivity(Intent.createChooser(intent, activityTitle));
     }
 
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("Details Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
     private class ScreenShotTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
@@ -373,10 +419,11 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                     Bitmap waterBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon96);
                     Bitmap watermarkBitmap = WaterMaskImageUtil.createWaterMaskRightTop(
                             DetailsActivity.this,
-                            mScreenShotBitmap, waterBitmap,10,10);
+                            mScreenShotBitmap, waterBitmap, 10, 10);
                     String fileName = ScreenShotUtils
                             .savePic(watermarkBitmap);
-                    shareMsg("分享到...", null, null, fileName);
+                    //shareMsg("分享到...", null, null, fileName);
+                    showShare(fileName);
                     //线程睡眠5秒，模拟耗时操作，这里面的内容Android系统会自动为你启动一个新的线程执行
                     //Thread.sleep(5000);
                 } else {
@@ -399,6 +446,33 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
             Toast.makeText(getApplicationContext(), "截图已保存", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private void showShare(String fileName) {
+        ShareSDK.initSDK(this);
+        OnekeyShare oks = new OnekeyShare();
+        //关闭sso授权
+        oks.disableSSOWhenAuthorize();
+        // 分享时Notification的图标和文字  2.5.9以后的版本不调用此方法
+        //oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
+        // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
+        oks.setTitle(getString(R.string.cook_details_shared_name));
+        // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
+        oks.setTitleUrl("http://sharesdk.cn");
+        // text是分享文本，所有平台都需要这个字段
+        oks.setText("我是分享文本，啦啦啦~");
+        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+        oks.setImagePath(fileName);//确保SDcard下面存在此张图片
+        // url仅在微信（包括好友和朋友圈）中使用
+        //oks.setUrl("http://sharesdk.cn");
+        // comment是我对这条分享的评论，仅在人人网和QQ空间使用
+        //oks.setComment("我是测试评论文本");
+        // site是分享此内容的网站名称，仅在QQ空间使用
+        //oks.setSite(getString(R.string.app_name));
+        // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+        //oks.setSiteUrl("http://sharesdk.cn");
+        // 启动分享GUI
+        oks.show(this);
     }
 
 

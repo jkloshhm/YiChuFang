@@ -21,7 +21,7 @@ public class MyScrollView extends ScrollView {
 
 
     // 这个值控制可以把ScrollView包裹的控件拉出偏离顶部或底部的距离。
-    private static final int MAX_OVERSCROLL_Y = 100;
+    private static final int MAX_OVERSCROLL_Y = 0;
 
     private Context mContext;
     private int newMaxOverScrollY;

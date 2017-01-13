@@ -33,7 +33,7 @@
 
     <string name="hot_material">时令与热门食材</string>
     <string name="cook_book_hand_select">菜谱精选</string>
-
+    <string name="cook_details_shared_name">分享到</string>
     <!--  Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

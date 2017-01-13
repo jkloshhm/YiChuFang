@@ -23,6 +23,8 @@ import com.example.guojian.weekcook.utils.DensityUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.sharesdk.framework.ShareSDK;
+
 
 public class MainActivity extends FragmentActivity {
     private ViewPager viewPager;
@@ -43,6 +45,7 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ShareSDK.initSDK(this);
         setContentView(R.layout.activity_main);
         initGatewaySdk();
         initView();
@@ -218,5 +221,12 @@ public class MainActivity extends FragmentActivity {
     private void initGatewaySdk() {
         // 初始化API网关
         ApiGatewayClient.init(getApplicationContext(), false);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        ShareSDK.stopSDK(this);
     }
 }
