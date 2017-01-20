@@ -450,7 +450,7 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
             dialog.dismiss();
             //mEndMessage.setVisibility(View.GONE);
             //mEndMessageScreenShot.setVisibility(View.GONE);
-            Toast.makeText(getApplicationContext(), "截图已保存", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "截图已保存", Toast.LENGTH_SHORT).show();
             //getPopupWindowSharePic();
             if(screenShotFileName != null){
                 SharePicPopupWindow();

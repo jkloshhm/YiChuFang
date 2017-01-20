@@ -8,7 +8,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.1"
     }
     buildTypes {
         release {
@@ -18,6 +18,29 @@ android {
     }
     productFlavors {
     }
+/*    signingConfigs {
+        key {
+            keyAlias 'guojian'
+            keyPassword '123456'
+            storeFile file('/home/guojian/AndroidStudioProjects/jkloshhm.jks')
+            storePassword '123456'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.key
+        }
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.key
+        }
+    }*/
+
+
 }
 
 dependencies {

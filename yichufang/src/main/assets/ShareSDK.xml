@@ -68,7 +68,7 @@
         Id="4"
         SortId="1"
         AppId="wxffc33a72c3a2d7c3"
-        AppSecret="32a8eef52572c6dd58ba038e2429a959"
+        AppSecret="9224ca9a43f95cebef25f9e93cb09da4"
         BypassApproval="false"
         Enable="true" />
 
@@ -76,7 +76,7 @@
         Id="5"
         SortId="2"
         AppId="wxffc33a72c3a2d7c3"
-        AppSecret="32a8eef52572c6dd58ba038e2429a959"
+        AppSecret="9224ca9a43f95cebef25f9e93cb09da4"
         BypassApproval="false"
         Enable="true" />
 
@@ -84,7 +84,7 @@
         Id="6"
         SortId="3"
         AppId="wxffc33a72c3a2d7c3"
-        AppSecret="32a8eef52572c6dd58ba038e2429a959"
+        AppSecret="9224ca9a43f95cebef25f9e93cb09da4"
         Enable="false" />
 	<!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
 	<SinaWeibo
