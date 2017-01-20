@@ -52,17 +52,13 @@
 			KakaoStory     https://developers.kakao.com/
 			Plurk          http://www.plurk.com/API
     -->
-    
-    <ShareSDK 
-        AppKey = "1ac01ea778365"/> <!-- 修改成你在sharesdk后台注册的应用的appkey"-->
-    
 
-    
+    <ShareSDK
+        AppKey = "1ac01ea778365"/> <!-- 修改成你在sharesdk后台注册的应用的appkey"-->
     <!-- 
     	Wechat微信和WechatMoments微信朋友圈的appid是一样的；
-    
-                       注意：开发者不能用我们这两个平台的appid,否则分享不了
-       	  微信测试的时候，微信测试需要先签名打包出apk,
+        注意：开发者不能用我们这两个平台的appid,否则分享不了
+       	微信测试的时候，微信测试需要先签名打包出apk,
 		sample测试微信，要先签名打包，keystore在sample项目中，密码123456
 		BypassApproval是绕过审核的标记，设置为true后AppId将被忽略，故不经过
 		审核的应用也可以执行分享，但是仅限于分享文字和图片，不能分享其他类型，
@@ -71,65 +67,74 @@
     <Wechat
         Id="4"
         SortId="1"
-        AppId="wx2acd3a070445cda5"
-        AppSecret="1da0b3ec1da8e39ea07780486457f0fb"
+        AppId="wxffc33a72c3a2d7c3"
+        AppSecret="32a8eef52572c6dd58ba038e2429a959"
         BypassApproval="false"
         Enable="true" />
-    
+
     <WechatMoments
         Id="5"
         SortId="2"
-        AppId="wx2acd3a070445cda5"
-        AppSecret="1da0b3ec1da8e39ea07780486457f0fb"
+        AppId="wxffc33a72c3a2d7c3"
+        AppSecret="32a8eef52572c6dd58ba038e2429a959"
         BypassApproval="false"
-        Enable="false" />
-        
+        Enable="true" />
+
 	<WechatFavorite
         Id="6"
-        SortId="6"
-        AppId="wx2acd3a070445cda5"
-        AppSecret="1da0b3ec1da8e39ea07780486457f0fb"
-        Enable="true" />
-    
-	<!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
-	<QQ
-        Id="7"
         SortId="3"
-        AppId="1105697055"
-        AppKey="jXXDALV70ZhaJabp"
-        ShareByAppClient="true"
-        Enable="true" />
-	<QZone
-		Id="3"
-		SortId="4"
-		AppId="100371282"
-		AppKey="aed9b0303e3ed1e27bae87c33761161d"
-		Enable="true" />
+        AppId="wxffc33a72c3a2d7c3"
+        AppSecret="32a8eef52572c6dd58ba038e2429a959"
+        Enable="false" />
 	<!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
 	<SinaWeibo
 		Id="1"
 		SortId="5"
 		AppKey="3432928456"
 		AppSecret="4517a1f8e581db683f325aea5b2925da"
-		RedirectUrl="http://www.sharesdk.cn"
+		RedirectUrl="http://a.app.qq.com/o/simple.jsp?pkgname=com.guojian.weekcook"
 		ShareByAppClient="true"
 		Enable="true" />
 
+	<QQ
+        Id="7"
+        SortId="4"
+        AppId="1105697055"
+        AppKey="jXXDALV70ZhaJabp"
+        ShareByAppClient="true"
+        Enable="true" />
+	<QZone
+		Id="3"
+		SortId="6"
+		AppId="100371282"
+		AppKey="aed9b0303e3ed1e27bae87c33761161d"
+		Enable="false" />
+
 	<Email
 		Id="12"
-		SortId="6"
-		Enable="true" />
+		SortId="7"
+		Enable="false" />
 
 	<ShortMessage
 		Id="13"
-		SortId="7"
-		Enable="true" />
+		SortId="8"
+		Enable="false" />
 
 	<Bluetooth
 		Id="36"
-		SortId="8"
+		SortId="9"
 		Enable="true" />
+	<Alipay
+		Id="50"
+		SortId="50"
+		AppId="2015072400185895"
+		Enable="false"/>
 
+	<AlipayMoments
+		Id="51"
+		SortId="51"
+		AppId="2015072400185895"
+		Enable="false"/>
 
 	<!--    <TencentWeibo
         Id="2"
@@ -153,7 +158,7 @@
         ConsumerSecret="gbeWsZvA9ELJSdoBzJ5oLKX0TU09UOwrzdGfo9Tg7DjyGuMe8G"
         CallbackUrl="http://mob.com"
         Enable="true" />
-    
+
     <Renren
         Id="10"
         SortId="10"
@@ -161,7 +166,7 @@
         ApiKey="fc5b8aed373c4c27a05b712acba0f8c3"
         SecretKey="f29df781abdd4f49beca5a2194676ca4"
         Enable="true" />
-    
+
     <KaiXin
         Id="11"
         SortId="11"
@@ -186,7 +191,7 @@
         ConsumerSecret="d98217b4020e7f1874263795f44838fe"
         RedirectUri="http://www.sharesdk.cn/"
         Enable="true" />-->
-        
+
     <!-- 
     	在中国大陆，印象笔记有两个服务器，一个是沙箱（sandbox），一个是生产服务器（china）。
     	一般你注册应用，它会先让你使用sandbox，当你完成测试以后，可以到
@@ -273,7 +278,7 @@
 		ClientSecret="1b2e82f110264869b3505c3fe34e31a1"
 		RedirectUri="http://sharesdk.cn"
         Enable="true" />-->
-    
+
     <!-- 
     	Yixin易信和YixinMoments易信朋友圈的appid是一样的；
     
@@ -292,7 +297,7 @@
         AppId="yx0d9a9f9088ea44d78680f3274da1765f"
         BypassApproval="true"
         Enable="true" />
-	
+
 	<YixinMoments
     	Id="30"
         SortId="30"
@@ -307,20 +312,20 @@
         AppSecret="5EDE59F37B3EFA8F65EEFB9976A4E933"
         RedirectUri="http://sharesdk.cn"
         Enable="true" />
-	
+
 	<Line
 	    Id="32"
         SortId="32"
         ChannelID = "1477692153"
         ChannelSecret ="f30c036370f2e04ade71c52eef73a9af"
         Enable="true" />
-	
+
 	<KakaoTalk
 	    Id="33"
         SortId="33"
         AppKey="48d3f524e4a636b08d81b3ceb50f1003"
         Enable="true" />
-	
+
 	<KakaoStory
 	    Id="34"
         SortId="34"
@@ -338,30 +343,20 @@
         SortId="37"
         ConsumerKey="32741-389c565043c49947ba7edf05"
         Enable="true" />
-    
+
     <Instapaper
         Id="38"
         SortId="38"
         ConsumerKey="4rDJORmcOcSAZL1YpqGHRI605xUvrLbOhkJ07yO0wWrYrc61FA"
         ConsumerSecret="GNr1GespOQbrm8nvd7rlUsyRQsIo3boIbMguAl9gfpdL0aKZWe"
         Enable="true" />
-    
+
     <FacebookMessenger
         Id="39"
         SortId="39"
         AppId="107704292745179"
         Enable="true" />-->
-    
-     <Alipay
-        Id="50"
-        SortId="50"  
-        AppId="2015072400185895"
-        Enable="false"/>
-     
-     <AlipayMoments
-        Id="51"
-        SortId="51"  
-        AppId="2015072400185895"
-        Enable="false"/>
+
+
 
 </DevInfor>

@@ -2,6 +2,7 @@ package com.example.guojian.weekcook.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -93,7 +94,15 @@ public class MySettingsActivity extends AppCompatActivity implements View.OnClic
 
                 break;
             case R.id.ll__settings_give_app_score:
-
+                try {
+                    Uri uri = Uri.parse("market://details?id="
+                            + this.getPackageName());//需要评分的APP包名
+                    Intent intent5 = new Intent(Intent.ACTION_VIEW, uri);
+                    intent5.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent5);
+                } catch (Exception e) {
+                    Toast.makeText(MySettingsActivity.this, "错误~", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.ll_settings_clean_cache:
                 onClickCleanCache();

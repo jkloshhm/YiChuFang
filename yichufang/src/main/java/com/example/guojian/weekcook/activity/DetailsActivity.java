@@ -13,6 +13,9 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -22,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,8 +52,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
+import cn.sharesdk.sina.weibo.SinaWeibo;
+import cn.sharesdk.wechat.friends.Wechat;
+import cn.sharesdk.wechat.moments.WechatMoments;
 
 public class DetailsActivity extends Activity implements MyScrollView.OnScrollListener {
     private static DBServices db;
@@ -64,7 +72,7 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
     private MyScrollView mScrollView;
     private boolean isRed;
     private TextView mTitleName, mName, mContent, mPeopleNum, mCookingTime, mTag, mTotalSteps;
-    private final static String TAG = "jkl_____DetailsActivity";
+    private final static String TAG = "DetailsActivity";
     private int screenWidth;//手机屏幕宽度
     private int mDetailsTitleHeight;//标题栏的高度
     private int mScrollViewTop;//标题栏的高度
@@ -121,9 +129,8 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                 for (int i = 0; i < mScrollView.getChildCount(); i++) {
                     mScrollView.getChildAt(i).setBackgroundColor(Color.parseColor("#ffffff"));
                 }
-                //Log.i(TAG, "点击了分享~~~~");
                 dialog = new ProgressDialog(DetailsActivity.this);
-                dialog.setMessage("截屏中，请稍等...");
+                dialog.setMessage(" 截屏中，请稍等...");
                 dialog.show();
                 //开始执行AsyncTask，并传入某些数据
                 //mEndMessage.setVisibility(View.GONE);
@@ -400,8 +407,7 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
      */
     public Action getIndexApiAction() {
         Thing object = new Thing.Builder()
-                .setName("Details Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
+                .setName("Details Page")
                 .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
                 .build();
         return new Action.Builder(Action.TYPE_VIEW)
@@ -410,22 +416,23 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                 .build();
     }
 
+    String screenShotFileName = null;
     private class ScreenShotTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
             try {
                 if (GetBitmapFromSdCardUtil.hasSdcard()) {
-                    Bitmap mScreenShotBitmap = ScreenShotUtils.getScrollViewBitmap(mScrollView);
-                    Bitmap waterBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon96);
-                    Bitmap watermarkBitmap = WaterMaskImageUtil.createWaterMaskRightTop(
-                            DetailsActivity.this,
-                            mScreenShotBitmap, waterBitmap, 10, 10);
-                    String fileName = ScreenShotUtils
-                            .savePic(watermarkBitmap);
-                    //shareMsg("分享到...", null, null, fileName);
-                    showShare(fileName);
-                    //线程睡眠5秒，模拟耗时操作，这里面的内容Android系统会自动为你启动一个新的线程执行
-                    //Thread.sleep(5000);
+                    try{
+                        Bitmap mScreenShotBitmap = ScreenShotUtils.getScrollViewBitmap(mScrollView);
+                        Bitmap waterBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon96);
+                        Bitmap watermarkBitmap = WaterMaskImageUtil.createWaterMaskRightTop(
+                                DetailsActivity.this,
+                                mScreenShotBitmap, waterBitmap, 10, 10);
+                        screenShotFileName = ScreenShotUtils.savePic(watermarkBitmap);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+
                 } else {
                     Toast.makeText(getApplicationContext(), "无SD卡,存储失败!", Toast.LENGTH_SHORT)
                             .show();
@@ -444,13 +451,20 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
             //mEndMessage.setVisibility(View.GONE);
             //mEndMessageScreenShot.setVisibility(View.GONE);
             Toast.makeText(getApplicationContext(), "截图已保存", Toast.LENGTH_SHORT).show();
+            //getPopupWindowSharePic();
+            if(screenShotFileName != null){
+                SharePicPopupWindow();
+                mPopupWindowSharePic.showAtLocation(mScrollView, Gravity.BOTTOM, 0, -500);
+            }
         }
-
     }
 
-    private void showShare(String fileName) {
+    private void showSharePic(String platform, String fileName) {
         ShareSDK.initSDK(this);
         OnekeyShare oks = new OnekeyShare();
+        if (platform != null) {
+            oks.setPlatform(platform);
+        }
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
         // 分享时Notification的图标和文字  2.5.9以后的版本不调用此方法
@@ -458,22 +472,112 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
         // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
         oks.setTitle(getString(R.string.cook_details_shared_name));
         // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
-        oks.setTitleUrl("http://sharesdk.cn");
+        oks.setTitleUrl("http://a.app.qq.com/o/simple.jsp?pkgname=com.guojian.weekcook");
         // text是分享文本，所有平台都需要这个字段
-        oks.setText("我是分享文本，啦啦啦~");
+        oks.setText("我正在使用《易厨房》APP分享菜谱,下载地址：http://a.app.qq.com/o/simple.jsp?pkgname=com.guojian.weekcook");
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
         oks.setImagePath(fileName);//确保SDcard下面存在此张图片
-        // url仅在微信（包括好友和朋友圈）中使用
-        //oks.setUrl("http://sharesdk.cn");
-        // comment是我对这条分享的评论，仅在人人网和QQ空间使用
-        //oks.setComment("我是测试评论文本");
-        // site是分享此内容的网站名称，仅在QQ空间使用
-        //oks.setSite(getString(R.string.app_name));
-        // siteUrl是分享此内容的网站地址，仅在QQ空间使用
-        //oks.setSiteUrl("http://sharesdk.cn");
-        // 启动分享GUI
+
         oks.show(this);
     }
 
+    private PopupWindow mPopupWindowSharePic;
+    private void DismissPopupWindow(){
+        if (mPopupWindowSharePic != null && mPopupWindowSharePic.isShowing()) {
+            mPopupWindowSharePic.dismiss();
+            mPopupWindowSharePic = null;
+            WindowManager.LayoutParams params = getWindow().getAttributes();
+            params.alpha = 1f;
+            getWindow().setAttributes(params);
+        }
+    }
+    private void SharePicPopupWindow() {
+        // 获取自定义布局文件activity_popupwindow_left.xml的视图
+        final View popupWindow_sharePic = getLayoutInflater()
+                .inflate(R.layout.share_pop_window_details_activity, null, false);
+        // 创建PopupWindow实例,200,LayoutParams.MATCH_PARENT分别是宽度和高度
+        popupWindow_sharePic.setFocusable(true); // 这个很重要
+        popupWindow_sharePic.setFocusableInTouchMode(true);
+        mPopupWindowSharePic = new PopupWindow(popupWindow_sharePic, WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.WRAP_CONTENT, true);
+        // 设置动画效果
+        mPopupWindowSharePic.setFocusable(true);
+        // 重写onKeyListener
+        popupWindow_sharePic.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    DismissPopupWindow();
+                }
+                return false;
+            }
+        });
+
+        mPopupWindowSharePic.setAnimationStyle(R.style.AnimationFade_Settings);
+        //设置actiivity透明度
+        WindowManager.LayoutParams params = getWindow().getAttributes();
+        params.alpha = 0.5f;
+        getWindow().setAttributes(params);
+        // 点击其他地方消失
+        popupWindow_sharePic.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                DismissPopupWindow();
+                return false;
+            }
+        });
+
+        final TextView mCancel
+                = (TextView) popupWindow_sharePic.findViewById(R.id.share_cancel);
+        mCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DismissPopupWindow();
+            }
+        });
+
+        final LinearLayout mWeChat
+                = (LinearLayout) popupWindow_sharePic.findViewById(R.id.wechat);
+        mWeChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //比如分享到QQ，其他平台则只需要更换平台类名，例如Wechat.NAME则是微信
+                Platform plat = ShareSDK.getPlatform(Wechat.NAME);
+                if(screenShotFileName != null){
+                    showSharePic(plat.getName(), screenShotFileName);
+                }
+                DismissPopupWindow();
+            }
+        });
+
+        final LinearLayout mWeChatMoments
+                = (LinearLayout) popupWindow_sharePic.findViewById(R.id.wechatmoments);
+        mWeChatMoments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //比如分享到QQ，其他平台则只需要更换平台类名，例如Wechat.NAME则是微信
+                Platform plat = ShareSDK.getPlatform(WechatMoments.NAME);
+                if(screenShotFileName != null){
+                    showSharePic(plat.getName(), screenShotFileName);
+                }
+                DismissPopupWindow();
+            }
+        });
+
+        final LinearLayout mSinaWeibo
+                = (LinearLayout) popupWindow_sharePic.findViewById(R.id.sinaweibo);
+        mSinaWeibo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //比如分享到QQ，其他平台则只需要更换平台类名，例如Wechat.NAME则是微信
+                Platform plat = ShareSDK.getPlatform(SinaWeibo.NAME);
+                if(screenShotFileName != null){
+                    showSharePic(plat.getName(), screenShotFileName);
+                }
+                DismissPopupWindow();
+            }
+        });
+
+    }
 
 }

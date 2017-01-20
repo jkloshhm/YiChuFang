@@ -71,4 +71,11 @@
         <item name="closeIcon">@drawable/m_search_press</item>
     </style>
 
+
+    <style name="AnimationFade_Settings">
+        <!-- PopupWindow底部弹出的效果 -->
+        <item name="android:windowEnterAnimation">@anim/in_downtoup</item>
+        <item name="android:windowExitAnimation">@anim/out_uptodown</item>
+    </style>
+
 </resources>
