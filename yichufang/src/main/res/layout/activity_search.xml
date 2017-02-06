@@ -60,7 +60,8 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:textColorHint="@color/gray"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:imeOptions="actionSearch"/>
         </LinearLayout>
 
         <LinearLayout
