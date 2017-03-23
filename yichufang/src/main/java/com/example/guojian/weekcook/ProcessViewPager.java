@@ -58,7 +58,6 @@ public class ProcessViewPager extends FrameLayout {
 
     private Context mContext;
     private LayoutInflater mInflate;
-
     private TextView mPosition;
 
     public ProcessViewPager(Context context) {
@@ -139,7 +138,6 @@ public class ProcessViewPager extends FrameLayout {
 
             if (!TextUtils.isEmpty(processBean.getProcess_pic())) {//通过URL时使用ImageLoader加载图片
                 ImageLoaderUtil.setPicBitmap(imageView, processBean.getProcess_pic());
-
             }
             if (!TextUtils.isEmpty(processBean.getProcess_pcontent())) {//有标题数据才显示
                 labelTitle.setText(processBean.getProcess_pcontent().replace("<br />",""));

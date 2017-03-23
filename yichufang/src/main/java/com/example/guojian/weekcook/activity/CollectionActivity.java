@@ -1,11 +1,14 @@
 package com.example.guojian.weekcook.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -42,7 +45,7 @@ public class CollectionActivity extends AppCompatActivity {
                 }
             });
         }
-        initDB();
+
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -64,12 +67,42 @@ public class CollectionActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 cookBean = cookBeanlist.get(position);
-                MyDBServiceUtils.delectData(cookBean, db);
-                Toast.makeText(CollectionActivity.this, "取消收藏", Toast.LENGTH_SHORT).show();
+                setCancelCollection();
                 return true;
             }
         });
     }
+
+    //是否取消收藏
+    public void setCancelCollection() {
+        //提示对话框
+        AlertDialog builder = new AlertDialog.Builder(this).create();
+        builder.setView(getLayoutInflater().inflate(R.layout.alert_dialog_view, null));
+        builder.setButton(DialogInterface.BUTTON_POSITIVE, "移除",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MyDBServiceUtils.delectData(cookBean, db);
+                        //Toast.makeText(CollectionActivity.this, "取消收藏", Toast.LENGTH_SHORT).show();
+                        initDB();
+                        Toast.makeText(CollectionActivity.this, "已取消收藏~", Toast.LENGTH_SHORT)
+                                .show();
+                    }
+                });
+        builder.setButton(DialogInterface.BUTTON_NEGATIVE, "取消",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        builder.show();
+        Button pButton = builder.getButton(DialogInterface.BUTTON_POSITIVE);
+        pButton.setTextColor(getResources().getColor(R.color.red_theme));
+        Button nButton = builder.getButton(DialogInterface.BUTTON_NEGATIVE);
+        nButton.setTextColor(getResources().getColor(R.color.gray));
+    }
+
 
     private void initDB() {
         db = MyDBServiceUtils.getInstance(this);
@@ -97,7 +130,7 @@ public class CollectionActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        adapter.notifyDataSetChanged();
+        initDB();
     }
 
     @Override
