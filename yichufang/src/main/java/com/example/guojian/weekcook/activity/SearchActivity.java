@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,58 +38,47 @@ public class SearchActivity extends Activity {
         mSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(editText.getText().toString().trim())) {
-                    Toast.makeText(SearchActivity.this, "请输入正确的菜名", Toast.LENGTH_SHORT).show();
-                } else {
-                    //setEditTextInhibitInputSpeChat(mSearchName);
-                    Intent mIntent = new Intent(SearchActivity.this, CookListActivity.class);
-                    mIntent.putExtra("CookType", "GetDataBySearchName");
-                    mIntent.putExtra("name", editText.getText().toString().replace(" ", ""));
-                    startActivity(mIntent);
-                }
+                searchCookName(editText.getText().toString());
             }
         });
 
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-
                 if (actionId == EditorInfo.IME_ACTION_SEARCH
-                        || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
-                {
-                    //do something;
-                    if (TextUtils.isEmpty(editText.getText().toString().trim())) {
-                        Toast.makeText(SearchActivity.this, "请输入正确的菜名", Toast.LENGTH_SHORT).show();
-                        return false;
-                    } else {
-                        //setEditTextInhibitInputSpeChat(mSearchName);
-                        Intent mIntent = new Intent(SearchActivity.this, CookListActivity.class);
-                        mIntent.putExtra("CookType", "GetDataBySearchName");
-                        mIntent.putExtra("name", editText.getText().toString().replace(" ", ""));
-                        startActivity(mIntent);
-                        return true;
-                    }
+                        || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                    searchCookName(editText.getText().toString());
                 }
                 return false;
             }
-
         });
 
+
         GridView hotSearchGridView = (GridView) findViewById(R.id.gv_hot_search);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
-                R.layout.hot_search_gv_adapter_item, hotSreachName);
+        ArrayAdapter<String> arrayAdapter =
+                new ArrayAdapter<String>(this, R.layout.hot_search_gv_adapter_item, hotSreachName);
         hotSearchGridView.setAdapter(arrayAdapter);
         hotSearchGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String name = hotSreachName[position];
-                //setEditTextInhibitInputSpeChat(mSearchName);
-                Intent mIntent = new Intent(SearchActivity.this, CookListActivity.class);
-                mIntent.putExtra("CookType", "GetDataBySearchName");
-                mIntent.putExtra("name", name);
-                startActivity(mIntent);
+                searchCookName(name);
             }
         });
 
+        ListView historySearchListView = (ListView) findViewById(R.id.lv_history_search);
+
+    }
+
+    private void searchCookName(String name) {
+        //do something;
+        if (TextUtils.isEmpty(name.trim())) {
+            Toast.makeText(SearchActivity.this, "请输入正确的菜名", Toast.LENGTH_SHORT).show();
+        } else {
+            //setEditTextInhibitInputSpeChat(mSearchName);
+            Intent mIntent = new Intent(SearchActivity.this, CookListActivity.class);
+            mIntent.putExtra("CookType", "GetDataBySearchName");
+            mIntent.putExtra("name", name.replace(" ", ""));
+            startActivity(mIntent);
+        }
     }
 }
