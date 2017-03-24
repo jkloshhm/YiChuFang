@@ -226,7 +226,7 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
         cookBean = (CookBean) intent.getSerializableExtra("cookBean01");
         setUpViews();
         realIp = cookBean.getReal_ip();
-
+        Log.i(TAG,"realIp=="+realIp);
         if (realIp.equals("mary") && !cookIdList.contains(cookBean.getId_cook())) {
             mCollectImg.setImageDrawable(getResources()
                     .getDrawable(R.mipmap.cook_no_collected_white));
@@ -236,6 +236,7 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                     .getDrawable(R.mipmap.cook_collected_white));
             isRed = true;
         }
+        Log.i(TAG,"isRed=="+realIp);
         mButtonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

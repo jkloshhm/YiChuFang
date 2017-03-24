@@ -58,7 +58,7 @@ public class CookListActivity extends Activity {
             }
         });
         initJsonData();
-        initDB();
+
         mCookListAdapter = new CookListAdapter(this, cookBeanList);
         mLisview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -81,6 +81,7 @@ public class CookListActivity extends Activity {
     protected void onResume() {
         Log.i(TAG, "CookListActivity ____________onResume()");
         super.onResume();
+        initDB();
     }
 
     private void initJsonData() {
