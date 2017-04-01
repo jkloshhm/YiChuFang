@@ -262,8 +262,6 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-
     }
 
     @Override
@@ -578,7 +576,5 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                 DismissPopupWindow();
             }
         });
-
     }
-
 }
