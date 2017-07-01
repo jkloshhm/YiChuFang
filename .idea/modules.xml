@@ -2,10 +2,15 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/YiChuFang.iml" filepath="$PROJECT_DIR$/.idea/YiChuFang.iml" />
       <module fileurl="file://$PROJECT_DIR$/YiChuFang.iml" filepath="$PROJECT_DIR$/YiChuFang.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/onekeyshare/onekeyshare.iml" filepath="$PROJECT_DIR$/onekeyshare/onekeyshare.iml" />
       <module fileurl="file://$PROJECT_DIR$/onekeyshare/onekeyshare.iml" filepath="$PROJECT_DIR$/onekeyshare/onekeyshare.iml" />
       <module fileurl="file://$PROJECT_DIR$/sharesdk/sharesdk.iml" filepath="$PROJECT_DIR$/sharesdk/sharesdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sharesdk/sharesdk.iml" filepath="$PROJECT_DIR$/sharesdk/sharesdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yichufang/yichufang.iml" filepath="$PROJECT_DIR$/yichufang/yichufang.iml" />
       <module fileurl="file://$PROJECT_DIR$/yichufang/yichufang.iml" filepath="$PROJECT_DIR$/yichufang/yichufang.iml" />
     </modules>
   </component>

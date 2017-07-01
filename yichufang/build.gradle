@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    buildToolsVersion '25.0.0'
     defaultConfig {
         applicationId "com.guojian.weekcook"
         minSdkVersion 19
@@ -23,7 +23,7 @@ android {
         key {
             keyAlias '123456'
             keyPassword '123456'
-            storeFile file('/home/guojian/AndroidStudioProjects/jkloshhm.jks')
+            storeFile file('/Users/mali/guojian/project/Yi/YiChuFang/yichufang/jkloshhm.jks')
             storePassword '123456'
         }
     }
