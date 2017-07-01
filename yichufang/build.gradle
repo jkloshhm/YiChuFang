@@ -23,7 +23,7 @@ android {
         key {
             keyAlias '123456'
             keyPassword '123456'
-            storeFile file('/Users/mali/guojian/project/Yi/YiChuFang/yichufang/jkloshhm.jks')
+            storeFile file('/Users/mali/guojian/project/YiChuFang/yichufang/jkloshhm.jks')
             storePassword '123456'
         }
     }

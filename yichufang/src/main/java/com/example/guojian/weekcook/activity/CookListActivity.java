@@ -124,12 +124,13 @@ public class CookListActivity extends Activity {
             String status = dataJsonObject.getString("status");
             String statusMsg = dataJsonObject.getString("msg");
             Log.i(TAG, "--------result----->->->->--" + result);
-            if (result.equals("") && status.equals("205")
-                    && statusMsg.equals("没有信息")) {
-                mLoadingLinearLayout.setVisibility(View.GONE);
+            if (/*result.equals("") && status.equals("205")
+                    && statusMsg.equals("没有信息")*/
+                    true) {
+                /*mLoadingLinearLayout.setVisibility(View.GONE);
                 mLisview.setVisibility(View.GONE);
                 mNoMassageLinearLayout.setVisibility(View.VISIBLE);
-            } else {
+            } else {*/
                 JSONObject resultJsonObject = new JSONObject(result);
                 JSONArray listJsonArray = resultJsonObject.getJSONArray("list");
                 for (int i = 0; i < listJsonArray.length(); i++) {
@@ -224,10 +225,11 @@ public class CookListActivity extends Activity {
             String classType = jsonBundle.getString("classType");
             String jsonErrorMessage = jsonBundle.getString("errorMessage");
             String jsonData = jsonBundle.getString("stringBody");
-            //Log.i(TAG, "--------->>jsonData====" + jsonData);
+            Log.i(TAG, "--------->>jsonData====" + jsonData);
             Log.i(TAG, "--------->>jsonErrorMessage====" + jsonErrorMessage);
             if (jsonData != null) {
                 if (classType != null && classType.equals("GetDataBySearchName")) {//按名称搜索菜谱
+
                     getDataAndUpdateUI(jsonData);
                 } /*else if (classType != null && classType.equals("GetDataClass")) {//分类名称
                 } */ else if (classType != null && classType.equals("GetDataByClassId")) {//分类名称ID

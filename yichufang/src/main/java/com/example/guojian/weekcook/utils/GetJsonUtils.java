@@ -42,6 +42,7 @@ public class GetJsonUtils {
                     bundle.putString("stringBody", stringBody);
                     Message msg = new Message();
                     msg.setData(bundle);
+                    Log.i("guo", "errorMessage==========utils====" + errorMessage);
                     Log.i("guo", "stringBody==========utils====" + stringBody);
                     handler.sendMessage(msg);
                 } catch (Exception e) {
