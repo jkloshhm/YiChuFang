@@ -26,6 +26,7 @@ public class GetJsonUtils {
         apiRequest.setMethod(HttpMethod.GET);
         apiRequest.addQuery("keyword", name);
         apiRequest.addQuery("num", "50");
+        apiRequest.addQuery("start","0");
         apiRequest.setTrustServerCertificate(true);
         apiRequest.setTimeout(10000);
         rpcService.call(apiRequest, new ApiResponseCallback() {
